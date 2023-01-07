@@ -1,0 +1,163 @@
+[TITLE]
+
+[JUNCTIONS]
+;ID                      Elevation       Demand Pattern                 
+ node1                    328.0839895    158.50323141                            ;
+ node2                    328.0839895    158.50323141                            ;
+ node3                    328.0839895    158.50323141                            ;
+ node4                    328.0839895    158.50323141                            ;
+ node5                    328.0839895    158.50323141                            ;
+ node6                    328.0839895    158.50323141                            ;
+ node7                    32.80839895    158.50323141                            ;
+ node8                    32.80839895    158.50323141                            ;
+ node9                    32.80839895    158.50323141                            ;
+ node10                   32.80839895    158.50323141                            ;
+ node11                   32.80839895    158.50323141                            ;
+ node12                   32.80839895    158.50323141                            ;
+ node13                   32.80839895    158.50323141                            ;
+ node14                   32.80839895    158.50323141                            ;
+ node15                   32.80839895    158.50323141                            ;
+ node16                   32.80839895    158.50323141                            ;
+ node17                   32.80839895    158.50323141                            ;
+
+[RESERVOIRS]
+;ID                                   Head                  Pattern
+ Tank                    410.10498688                            ;
+
+[TANKS]
+;ID                              Elevation           Init Level            Min Level            Max Level             Diameter           Min Volume Volume Curve         Overflow            
+
+[PIPES]
+;ID                   Node1                Node2                              Length             Diameter            Roughness           Minor Loss               Status
+ P2                   node1                node7                    32.80839895     19.68503937             100               0                 Open   ;
+ P3                   node7                node8                    32.80839895     19.68503937             100               0                 Open   ;
+ P4                   node1                node2                    32.80839895     19.68503937             100               0                 Open   ;
+ P5                   node7                node9                    32.80839895     19.68503937             100               0                 Open   ;
+ P6                   node8                node10                   32.80839895     19.68503937             100               0                 Open   ;
+ P7                   node2                node9                    32.80839895     19.68503937             100               0                 Open   ;
+ P8                   node9                node10                   32.80839895     19.68503937             100               0                 Open   ;
+ P9                   node2                node3                    32.80839895     19.68503937             100               0                 Open   ;
+ P10                  node9                node11                   32.80839895     19.68503937             100               0                 Open   ;
+ P11                  node3                node11                   32.80839895     19.68503937             100               0                 Open   ;
+ P12                  node11               node14                   32.80839895     19.68503937             100               0                 Open   ;
+ P13                  node3                node4                    32.80839895     19.68503937             100               0                 Open   ;
+ P14                  node4                node15                   32.80839895     19.68503937             100               0                 Open   ;
+ P15                  node4                node5                    32.80839895     19.68503937             100               0                 Open   ;
+ P16                  node5                node12                   32.80839895     19.68503937             100               0                 Open   ;
+ P17                  node12               node16                   32.80839895     19.68503937             100               0                 Open   ;
+ P18                  node5                node6                    32.80839895     19.68503937             100               0                 Open   ;
+ P19                  node12               node13                   32.80839895     19.68503937             100               0                 Open   ;
+ P20                  node6                node13                   32.80839895     19.68503937             100               0                 Open   ;
+ P21                  node13               node17                   32.80839895     19.68503937             100               0                 Open   ;
+ P1                   Tank                 node1                    32.80839895     19.68503937             100               0                 Open   ;
+
+[PUMPS]
+;ID                   Node1                Node2                Properties          
+ Pump                 Tank                 node1                POWER    0.06705110444219038    ;
+
+[VALVES]
+;ID                   Node1                Node2                            Diameter Type              Setting           Minor Loss
+
+[TAGS]
+;type      name       tag       
+
+[DEMANDS]
+;ID        Demand     Pattern   
+
+[STATUS]
+;ID        Setting   
+
+[PATTERNS]
+;ID        Multipliers
+
+[CURVES]
+;ID         X-Value      Y-Value     
+
+[CONTROLS]
+
+[RULES]
+
+[ENERGY]
+GLOBAL PRICE           0.0000
+
+[EMITTERS]
+;ID        Flow coefficient
+
+[QUALITY]
+
+[SOURCES]
+;Node      Type       Quality    Pattern   
+
+[REACTIONS]
+;Type           Pipe/Tank               Coefficient
+
+ ORDER BULK 1
+ ORDER TANK 1
+ ORDER WALL 1
+ GLOBAL BULK 0.0000    
+ GLOBAL WALL 0.0000    
+
+[MIXING]
+;Tank ID             Model Fraction
+
+[TIMES]
+DURATION             00:00:00
+HYDRAULIC TIMESTEP   01:00:00
+QUALITY TIMESTEP     00:06:00
+PATTERN TIMESTEP     01:00:00
+PATTERN START        00:00:00
+REPORT TIMESTEP      01:00:00
+REPORT START         00:00:00
+START CLOCKTIME      00:00:00 AM
+RULE TIMESTEP        00:06:00
+STATISTIC            NONE      
+
+[REPORT]
+
+[OPTIONS]
+UNITS                GPM                 
+HEADLOSS             H-W                 
+SPECIFIC GRAVITY     1
+VISCOSITY            1
+TRIALS               200
+ACCURACY             0.001
+CHECKFREQ            2
+MAXCHECK             10
+UNBALANCED           STOP                
+PATTERN              1                   
+DEMAND MULTIPLIER    1
+EMITTER EXPONENT     0.5
+QUALITY              NONE                
+DIFFUSIVITY          1
+TOLERANCE            0.01
+
+[COORDINATES]
+;Node      X-Coord    Y-Coord   
+node1               1.000000000          2.000000000
+node2               2.000000000          2.000000000
+node3               3.000000000          2.000000000
+node4               4.000000000          2.000000000
+node5               5.000000000          2.000000000
+node6               6.000000000          2.000000000
+node7               1.000000000          1.000000000
+node8               1.000000000          0.000000000
+node9               2.000000000          1.000000000
+node10              2.000000000          0.000000000
+node11              3.000000000          1.000000000
+node12              5.000000000          1.000000000
+node13              6.000000000          1.000000000
+node14              3.000000000          0.000000000
+node15              4.000000000          0.000000000
+node16              5.000000000          0.000000000
+node17              6.000000000          0.000000000
+Tank               -1.000000000          3.000000000
+
+[VERTICES]
+;Link      X-Coord    Y-Coord   
+
+[LABELS]
+
+[BACKDROP]
+UNITS    NONE
+
+[END]
