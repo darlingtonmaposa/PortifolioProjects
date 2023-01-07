@@ -1,0 +1,125 @@
+{
+  "objects": [
+    {
+      "scriptUri": "s3://de-mbd-predict-daniel-opanubi-s3-source/Scripts/Bash_script.sh",
+      "onFail": {
+        "ref": "ActionId_dti8U"
+      },
+      "name": "EC2 Instance Spin-up",
+      "runsOn": {
+        "ref": "ResourceId_iZ6rS"
+      },
+      "id": "ShellCommandActivityId_WAbfR",
+      "type": "ShellCommandActivity",
+      "onSuccess": {
+        "ref": "ActionId_gW4U2"
+      }
+    },
+    {
+      "role": "de-mbd-PipelineRole",
+      "subject": "Daniel_Opanubi_Pipeline_Success",
+      "name": "EC2 Instance Spinup Success",
+      "id": "ActionId_gW4U2",
+      "type": "SnsAlarm",
+      "message": "Successfully created EC2 instance from AMI",
+      "topicArn": "arn:aws:sns:eu-west-1:491403514136:de-mbd-predict-daniel-opanubi-SNS"
+    },
+    {
+      "filePath": "s3://de-mbd-predict-daniel-opanubi-s3-source/Output/historical_stock_data.csv",
+      "name": "S3 Data Node",
+      "id": "DataNodeId_NRu90",
+      "type": "S3DataNode"
+    },
+    {
+      "resourceRole": "de-mbd-PipelineResourceRolesecond",
+      "role": "de-mbd-PipelineRole",
+      "imageId": "ami-01c3485c9c8e2dd32",
+      "securityGroupIds": "sg-0daff871bf72e2a0a",
+      "instanceType": "t2.micro",
+      "name": "EC2 From AMI",
+      "keyPair": "de-mbd-predict-key",
+      "id": "ResourceId_iZ6rS",
+      "type": "Ec2Resource",
+      "terminateAfter": "1 Hour"
+    },
+    {
+      "role": "de-mbd-PipelineRole",
+      "subject": "Daniel_Opanubi_Pipeline_Success",
+      "name": "Historical Data Copy Success",
+      "id": "ActionId_hJNVk",
+      "message": "Successfully copied the historical data from the S3 bucket to the Database",
+      "type": "SnsAlarm",
+      "topicArn": "arn:aws:sns:eu-west-1:491403514136:de-mbd-predict-daniel-opanubi-SNS"
+    },
+    {
+      "role": "de-mbd-PipelineRole",
+      "subject": "Daniel_Opanubi_Pipeline_Failure",
+      "name": "EC2 Instance Spinup Failure",
+      "id": "ActionId_dti8U",
+      "message": "Failed to launch an Instance from image",
+      "type": "SnsAlarm",
+      "topicArn": "arn:aws:sns:eu-west-1:491403514136:de-mbd-predict-daniel-opanubi-SNS"
+    },
+    {
+      "database": {
+        "ref": "DatabaseId_0HogN"
+      },
+      "name": "S3 file to PostgresRDS",
+      "insertQuery": "INSERT INTO public.historical_stocks_data VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "id": "DataNodeId_UzYY9",
+      "type": "SqlDataNode",
+      "table": "historical_stocks_data"
+    },
+    {
+      "output": {
+        "ref": "DataNodeId_UzYY9"
+      },
+      "input": {
+        "ref": "DataNodeId_NRu90"
+      },
+      "onFail": {
+        "ref": "ActionId_r5j4p"
+      },
+      "dependsOn": {
+        "ref": "ShellCommandActivityId_WAbfR"
+      },
+      "name": "CSV to PostgresRDS",
+      "id": "CopyActivityId_wIhRj",
+      "runsOn": {
+        "ref": "ResourceId_iZ6rS"
+      },
+      "type": "CopyActivity",
+      "onSuccess": {
+        "ref": "ActionId_hJNVk"
+      }
+    },
+    {
+      "databaseName": "postgres",
+      "*password": "inprimal",
+      "name": "database-1",
+      "id": "DatabaseId_0HogN",
+      "type": "RdsDatabase",
+      "rdsInstanceId": "database-1",
+      "username": "postgres"
+    },
+    {
+      "role": "de-mbd-PipelineRole",
+      "subject": "Daniel_Opanubi_Pipeline_Failure",
+      "name": "Historical Data Copy Failure",
+      "id": "ActionId_r5j4p",
+      "message": "Failed to copy Historical data from S3 to RDS",
+      "type": "SnsAlarm",
+      "topicArn": "arn:aws:sns:eu-west-1:491403514136:de-mbd-predict-daniel-opanubi-SNS"
+    },
+    {
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "de-mbd-PipelineResourceRolesecond",
+      "role": "de-mbd-PipelineRole",
+      "pipelineLogUri": "s3://de-mbd-predict-daniel-opanubi-s3-source/Logs/",
+      "scheduleType": "ONDEMAND",
+      "name": "Default",
+      "id": "Default"
+    }
+  ],
+  "parameters": []
+}
